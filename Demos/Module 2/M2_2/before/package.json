@@ -1,0 +1,11 @@
+{
+  "name": "vehicles",
+  "version": "1.0.0",
+  "description": "A service to retrieve vehicle rental data",
+  "main": "vehicles.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Millar",
+  "license": "ISC"
+}
