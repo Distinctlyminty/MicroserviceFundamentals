@@ -1,28 +1,26 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Vehicle = require('./models/vehicleModel');
 const seedData = require('./data/seedData');
+const dbClient =  require('./dbClient');
+
 
 const app = express();
 
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://mongo:27017/vehicles', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    autoIndex: true
-});
-
 async function seed() {
+   await dbClient.connect();
     await Vehicle.deleteMany();
     await Vehicle.insertMany(seedData);
     console.log('Test data inserted successfully');
-    mongoose.connection.close();
+    await dbClient.disconnect();
 }
 
+// load the test data
 seed();
 
+// configure swagger
 require('./swagger')(app);
 
 // Create vehicle
@@ -49,11 +47,14 @@ require('./swagger')(app);
  */
 app.post('/vehicle', async (req, res) => {
     try {
+        await dbClient.connect();
         const vehicle = new Vehicle(req.body);
         await vehicle.save();
         res.status(201).send(vehicle);
     } catch (err) {
         res.status(500).send(err);
+    } finally {
+        await dbClient.disconnect();
     }
 });
 
@@ -90,10 +91,13 @@ app.post('/vehicle', async (req, res) => {
  */
 app.put('/vehicle/:id', async (req, res) => {
     try {
+        await dbClient.connect();
         const vehicle = await Vehicle.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.send(vehicle);
     } catch (err) {
         res.status(500).send(err);
+    } finally {
+        await dbClient.disconnect();
     }
 });
 
@@ -120,10 +124,13 @@ app.put('/vehicle/:id', async (req, res) => {
  */
 app.delete('/vehicle/:id', async (req, res) => {
     try {
+        await dbClient.connect();
         await Vehicle.findByIdAndDelete(req.params.id);
         res.status(204).send();
     } catch (err) {
         res.status(500).send(err);
+    } finally {     
+        await dbClient.disconnect();
     }
 });
 
@@ -154,10 +161,42 @@ app.delete('/vehicle/:id', async (req, res) => {
  */
 app.get('/vehicle/:id', async (req, res) => {
     try {
+        await dbClient.connect();
         const vehicle = await Vehicle.findById(req.params.id);
         res.send(vehicle);
     } catch (err) {
         res.status(500).send(err);
+    } finally {
+        await dbClient.disconnect();
+    }
+});
+
+/**
+ * @swagger
+ * /vehicles:
+ *   get:
+ *     summary: Get all vehicles
+ *     responses:
+ *       200:
+ *         description: A list of vehicles
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Vehicle'
+ *       500:
+ *         description: Internal server error
+ */
+app.get('/vehicles', async (req, res) => {
+    try {
+        await dbClient.connect();
+        const vehicles = await Vehicle.find();
+        res.send(vehicles);
+    } catch (err) {
+        res.status(500).send(err);
+    } finally {
+        await dbClient.disconnect();
     }
 });
 
@@ -188,14 +227,17 @@ app.get('/vehicle/:id', async (req, res) => {
  */
 app.get('/vehicle/search/:registrationNumber', async (req, res) => {
     try {
+        await dbClient.connect();
         const vehicle = await Vehicle.findOne({ registrationNumber: req.params.registrationNumber });
         res.send(vehicle);
     } catch (err) {
         res.status(500).send(err);
+    } finally { 
+        await dbClient.disconnect();
     }
 });
 
-// Lookup vehicles by rental price
+// Lookup vehicles by max rental price
 /**
  * @swagger
  * /vehicles/price/{maxPrice}:
@@ -222,10 +264,43 @@ app.get('/vehicle/search/:registrationNumber', async (req, res) => {
  */
 app.get('/vehicles/price/:maxPrice', async (req, res) => {
     try {
+        await dbClient.connect();
         const vehicles = await Vehicle.find({ rentalPrice: { $lte: req.params.maxPrice } });
         res.send(vehicles);
     } catch (err) {
         res.status(500).send(err);
+    } finally {
+        await dbClient.disconnect();
+    }
+});
+
+// Lookup vehicles by rental price range
+/**
+ * @swagger
+ * /vehicles:
+ *   get:
+ *     summary: Get all vehicles
+ *     responses:
+ *       200:
+ *         description: A list of vehicles
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Vehicle'
+ *       500:
+ *         description: Internal server error
+ */
+app.get('/vehicles', async (req, res) => {
+    try {
+        await dbClient.connect();
+        const vehicles = await Vehicle.find();
+        res.send(vehicles);
+    } catch (err) {
+        res.status(500).send(err);
+    } finally {
+        await dbClient.disconnect();
     }
 });
 

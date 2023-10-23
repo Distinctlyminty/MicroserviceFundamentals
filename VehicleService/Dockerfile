@@ -1,18 +1,20 @@
+# Use an official Node.js runtime as a parent image
 FROM node:20.6.1
 
-# Create app directory
-#WORKDIR /
+# Set the working directory to /app
+WORKDIR /app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
+# Copy the current directory contents into the container at /app
+COPY ./src .
 
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
+# Install any needed packages specified in package.json
+RUN npm ci
 
-# Bundle app source
-COPY . .
-
+# Make port 3000 available to the world outside this container
 EXPOSE 3000
+
+# Define environment variable
+#ENV NODE_ENV=production
+
+# Run index.js when the container launches
 CMD [ "node", "index.js" ]
