@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_8acde022bf64437983536bb0bacf7cea }}/vehicleService:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_8acde022bf64437983536bb0bacf7cea }}/vehicleservice:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
