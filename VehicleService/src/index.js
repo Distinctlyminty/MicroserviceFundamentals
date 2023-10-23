@@ -10,6 +10,9 @@ app.use(bodyParser.json());
 // load the test data
 vehicleService.seed();
 
+// configure swagger
+app.get('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
 // healthcheck endpoint
 /**
  * @swagger
