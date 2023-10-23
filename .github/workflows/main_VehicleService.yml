@@ -54,4 +54,4 @@ jobs:
         app-name: 'VehicleService'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_3499ee419600484c8495f56d21311b2b }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_8acde022bf64437983536bb0bacf7cea }}/vehicleService:${{ github.sha }}'
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_8acde022bf64437983536bb0bacf7cea }}/vehicleservice:${{ github.sha }}'
