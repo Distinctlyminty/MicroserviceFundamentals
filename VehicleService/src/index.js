@@ -1,8 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Vehicle = require('./models/vehicleModel');
-const seedData = require('./data/seedData');
+const Vehicle = require('./models/vehicle');
+const seedData = require('./data/vehicleSeedData');
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -15,8 +16,9 @@ mongoose.connect('mongodb://mongo:27017/vehicles', {
 
 async function seed() {
     await Vehicle.deleteMany();
-    await Vehicle.insertMany(seedData);
+    await Vehicle.insertMany(vehicles);
     console.log('Test data inserted successfully');
+    mongoose.connection.close();
 }
 
 seed();
@@ -159,33 +161,6 @@ app.get('/vehicle/:id', async (req, res) => {
     }
 });
 
-// Get all vehicles
-/**
- * @swagger
- * /vehicles:
- *   get:
- *     summary: Get all vehicles
- *     responses:
- *       200:
- *         description: A list of vehicles
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Vehicle'
- *       500:
- *         description: Internal server error
- */
-app.get('/vehicles', async (req, res) => {
-    try {
-        const vehicles = await Vehicle.find();
-        res.send(vehicles);
-    } catch (err) {
-        res.status(500).send(err);
-    }
-});
-
 // Search vehicle by registration number
 /**
  * @swagger
@@ -220,19 +195,14 @@ app.get('/vehicle/search/:registrationNumber', async (req, res) => {
     }
 });
 
+// Lookup vehicles by rental price
 /**
  * @swagger
- * /vehicles/price:
+ * /vehicles/price/{maxPrice}:
  *   get:
- *     summary: Get a list of vehicles with rental prices within the specified range
+ *     summary: Get a list of vehicles with rental price less than or equal to the specified maximum price
  *     parameters:
- *       - in: query
- *         name: minPrice
- *         required: true
- *         description: Minimum rental price to filter vehicles by
- *         schema:
- *           type: number
- *       - in: query
+ *       - in: path
  *         name: maxPrice
  *         required: true
  *         description: Maximum rental price to filter vehicles by
@@ -250,11 +220,9 @@ app.get('/vehicle/search/:registrationNumber', async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-app.get('/vehicles/price', async (req, res) => {
+app.get('/vehicles/price/:maxPrice', async (req, res) => {
     try {
-        const minPrice = req.query.minPrice;
-        const maxPrice = req.query.maxPrice;
-        const vehicles = await Vehicle.find({ rentalPrice: { $gte: minPrice, $lte: maxPrice } });
+        const vehicles = await Vehicle.find({ rentalPrice: { $lte: req.params.maxPrice } });
         res.send(vehicles);
     } catch (err) {
         res.status(500).send(err);
