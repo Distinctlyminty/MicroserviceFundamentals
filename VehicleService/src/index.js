@@ -23,6 +23,10 @@ seed();
 // configure swagger
 require('./swagger')(app);
 
+app.get('/', (req, res) => {
+    res.status(200).send('Vehicle Service');
+  });
+
 // Create vehicle
 /**
  * @swagger
