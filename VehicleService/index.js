@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Vehicle = require('./models/vehicle');
-const seedData = require('./data/vehicleSeedData');
+const Vehicle = require('./models/vehicleModel');
+const seedData = require('./data/seedData');
 
 const app = express();
 
@@ -16,7 +16,7 @@ mongoose.connect('mongodb://mongo:27017/vehicles', {
 
 async function seed() {
     await Vehicle.deleteMany();
-    await Vehicle.insertMany(vehicles);
+    await Vehicle.insertMany(seedData);
     console.log('Test data inserted successfully');
     mongoose.connection.close();
 }
