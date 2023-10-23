@@ -220,14 +220,19 @@ app.get('/vehicle/search/:registrationNumber', async (req, res) => {
     }
 });
 
-// Lookup vehicles by rental price
 /**
  * @swagger
- * /vehicles/price/{maxPrice}:
+ * /vehicles/price:
  *   get:
- *     summary: Get a list of vehicles with rental price less than or equal to the specified maximum price
+ *     summary: Get a list of vehicles with rental prices within the specified range
  *     parameters:
- *       - in: path
+ *       - in: query
+ *         name: minPrice
+ *         required: true
+ *         description: Minimum rental price to filter vehicles by
+ *         schema:
+ *           type: number
+ *       - in: query
  *         name: maxPrice
  *         required: true
  *         description: Maximum rental price to filter vehicles by
@@ -245,9 +250,11 @@ app.get('/vehicle/search/:registrationNumber', async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-app.get('/vehicles/price/:maxPrice', async (req, res) => {
+app.get('/vehicles/price', async (req, res) => {
     try {
-        const vehicles = await Vehicle.find({ rentalPrice: { $lte: req.params.maxPrice } });
+        const minPrice = req.query.minPrice;
+        const maxPrice = req.query.maxPrice;
+        const vehicles = await Vehicle.find({ rentalPrice: { $gte: minPrice, $lte: maxPrice } });
         res.send(vehicles);
     } catch (err) {
         res.status(500).send(err);
