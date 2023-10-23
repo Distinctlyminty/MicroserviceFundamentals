@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 vehicleService.seed();
 
 // configure swagger
-app.get('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+require('./swagger')(app);
 
 // healthcheck endpoint
 /**
