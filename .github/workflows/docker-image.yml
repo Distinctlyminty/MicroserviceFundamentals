@@ -25,5 +25,5 @@ jobs:
         context: ./VehicleService/
         push: true
         tags: |
-          jamesmillar/vehicleservice:latest
-          jamesmillar/vehicleservice:latest:${{ github.sha }}
+          vehicleservice:latest
+          vehicleservice:latest:${{ github.sha }}
