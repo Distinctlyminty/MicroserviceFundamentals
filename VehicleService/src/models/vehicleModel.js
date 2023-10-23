@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 /**
  * @swagger
@@ -32,15 +32,15 @@ const mongoose = require('mongoose');
  *         rentalPrice: 50
  */
 const vehicleSchema = new mongoose.Schema({
-    registrationNumber: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    make: String,
-    model: String,
-    year: Number,
-    rentalPrice: Number
+  registrationNumber: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  make: String,
+  model: String,
+  year: Number,
+  rentalPrice: Number,
 });
 
-module.exports = mongoose.model('vehicleModel', vehicleSchema);
+module.exports = mongoose.model("vehicleModel", vehicleSchema);
