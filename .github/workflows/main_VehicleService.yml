@@ -27,13 +27,13 @@ jobs:
         password: ${{ secrets.AzureAppService_ContainerPassword_044bf77fe0774cdda63d049ee05f9c22 }}
 
     - name: Build and push container image to registry
-      run: docker-compose -f /VehicleService/docker-compose.yml build
+      run: docker-compose -f ./VehicleService/docker-compose.yml build
       env:
         DOCKER_BUILDKIT: 1
         IMAGE_TAG: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_8acde022bf64437983536bb0bacf7cea }}/vehicleservice:${{ github.sha }}
 
     - name: Push container image to registry
-      run: docker-compose -f /VehicleService/docker-compose.yml push
+      run: docker-compose -f ./VehicleService/docker-compose.yml push
       env:
         DOCKER_BUILDKIT: 1
         IMAGE_TAG: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_8acde022bf64437983536bb0bacf7cea }}/vehicleservice:${{ github.sha }}
