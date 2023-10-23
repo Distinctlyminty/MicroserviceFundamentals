@@ -1,7 +1,7 @@
 FROM node:20.6.1
 
 # Create app directory
-WORKDIR /VehicleService/
+WORKDIR /
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
