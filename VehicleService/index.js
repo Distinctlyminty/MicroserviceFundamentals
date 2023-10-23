@@ -17,7 +17,6 @@ async function seed() {
     await Vehicle.deleteMany();
     await Vehicle.insertMany(seedData);
     console.log('Test data inserted successfully');
-    //mongoose.connection.close();
 }
 
 seed();
