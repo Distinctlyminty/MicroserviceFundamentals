@@ -1,6 +1,6 @@
-const Vehicle = require("./models/vehicleModel");
-const seedData = require("./data/seedData");
-const dbClient = require("./dbClient");
+const Vehicle = require("../models/vehicleModel");
+const seedData = require("../data/seedData");
+const dbClient = require("../dbClient");
 
 async function seed() {
   await dbClient.connect();
