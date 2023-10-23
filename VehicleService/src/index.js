@@ -23,6 +23,7 @@ seed();
 // configure swagger
 require('./swagger')(app);
 
+// healthcheck endpoint
 app.get('/', (req, res) => {
     res.status(200).send('Vehicle Service');
   });
