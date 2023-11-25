@@ -17,10 +17,16 @@ Below you will find a set of functional and non functional requirements for our 
 3. **Delete Vehicle (CRUD)**
    - Users will be able to delete vehicle records from the system.
 
-4. **Retrieve Vehicle by Registration Number**
+4. **Retrieve Vehicle by ID**
+   - The system shall provide an endpoint to retrieve vehicle details based on the records internal ID.
+
+5. **Retrieve all Vehicles**
+   - The system shall provide an endpoint to retrieve all vehicles.
+
+6. **Retrieve Vehicle by Registration Number**
    - The system shall provide an endpoint to retrieve vehicle details based on the registration number.
 
-5. **Retrieve Vehicles by Maximum Price**
+7. **Retrieve Vehicles by Maximum Price**
    - Users shall have the capability to retrieve a list of vehicles with a maximum daily rental price.
 
 ## Non-Functional Requirements
