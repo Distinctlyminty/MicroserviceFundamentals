@@ -128,5 +128,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-VehicleService/.DS_Store
-Demos/Module 3/M3_1/.DS_Store
+
+# ds store files
+.DS_Store
