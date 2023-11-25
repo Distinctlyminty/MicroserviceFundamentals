@@ -54,3 +54,23 @@ Close and reopen your Terminal to use NVM. You can now use NVM to install and ma
 
 Note: Node Version Manager (NVM) is not commonly used on Windows but can be used on Windows Subsystem for Linux (WSL) if needed.
 
+## Cloning the Course Source Code
+The source code for this course is avaiable inb the course assets on the Pluralsight website.  It's also available on Github.  
+
+https://github.com/Distinctlyminty/MicroserviceFundamentals
+
+1. Visit the [Microservice Fundamentals page on GitHub](https://github.com/Distinctlyminty/MicroserviceFundamentals)
+2. Clone the repository by clicking 'Code' and then selecting 'Open with Visual Studio'
+![Local Image](./clone.png)
+
+Alternatively you can clone the repository at the command line.
+1. Open the terminal and navigate to a folder where you would like to store the code.
+
+    ```shell
+    cd /path/to/your/desired/directory
+    
+2. Run the following command to clone the repository:
+
+    ```shell
+    git clone https://github.com/Distinctlyminty/MicroserviceFundamentals.git
+
