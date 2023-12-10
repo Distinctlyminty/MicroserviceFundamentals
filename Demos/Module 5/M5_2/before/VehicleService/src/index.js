@@ -28,6 +28,7 @@ app.get("/", (req, res) => {
   res.status(200).send("Vehicle Service");
 });
 
+
 // register the route handlers
 
 /**
@@ -86,7 +87,8 @@ app.get("/", (req, res) => {
  *       500:
  *         description: Internal server error.
  */
-app.post("/vehicle", vehicleService.createVehicle);
+
+//Todo: Add a route handler for POST /vehicle
 
 /**
  * @swagger
@@ -117,7 +119,8 @@ app.post("/vehicle", vehicleService.createVehicle);
  *       500:
  *         description: Internal server error.
  */
-app.put("/vehicle/:id", vehicleService.updateVehicle);
+
+//Todo: Add a route handler for PUT /vehicle/:id
 
 /**
  * @swagger
@@ -138,7 +141,8 @@ app.put("/vehicle/:id", vehicleService.updateVehicle);
  *       500:
  *         description: Internal server error.
  */
-app.delete("/vehicle/:id", vehicleService.deleteVehicle);
+
+//Todo: Add a route handler for DELETE /vehicle/:id
 
 /**
  * @swagger
@@ -165,7 +169,8 @@ app.delete("/vehicle/:id", vehicleService.deleteVehicle);
  *       500:
  *         description: Internal server error.
  */
-app.get("/vehicle/:id", vehicleService.getVehicle);
+
+//Todo: Add a route handler for GET /vehicle/:id
 
 /**
  * @swagger
@@ -187,7 +192,8 @@ app.get("/vehicle/:id", vehicleService.getVehicle);
  *       500:
  *         description: Internal server error.
  */
-app.get("/vehicles", vehicleService.getAllVehicles);
+
+//Todo: Add a route handler for GET /vehicles
 
 /**
  * @swagger
@@ -214,10 +220,9 @@ app.get("/vehicles", vehicleService.getAllVehicles);
  *       500:
  *         description: Internal server error.
  */
-app.get(
-  "/vehicle/search/:registrationNumber",
-  vehicleService.searchVehicleByRegistrationNumber
-);
+
+//Todo: Add a route handler for GET /vehicle/search/:registrationNumber
+
 
 /**
  * @swagger
@@ -246,10 +251,9 @@ app.get(
  *       500:
  *         description: Internal server error.
  */
-app.get(
-  "/vehicles/price/:maxPrice",
-  vehicleService.lookupVehiclesByMaxRentalPrice
-);
+
+//Todo: Add a route handler for GET /vehicles/price/:maxPrice
+
 
 const PORT = 3000;
 app.listen(PORT, () => {

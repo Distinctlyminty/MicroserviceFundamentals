@@ -38,20 +38,8 @@ const { v4: uuidv4 } = require('uuid');
  *         rentalPrice: 50
  */
 class Vehicle {
-  constructor(registrationNumber, make, model, year, rentalPrice) {
-    if (typeof registrationNumber !== 'string' || typeof make !== 'string' || typeof model !== 'string') {
-      throw new Error('registrationNumber, make, and model must be strings');
-    }
-    if (typeof year !== 'number' || typeof rentalPrice !== 'number') {
-      throw new Error('year and rentalPrice must be numbers');
-    }
-    this.id = uuidv4();
-    this.registrationNumber = registrationNumber;
-    this.make = make;
-    this.model = model;
-    this.year = year;
-    this.rentalPrice = rentalPrice;
-  }
+  
+  
 }
 
 module.exports = Vehicle;
