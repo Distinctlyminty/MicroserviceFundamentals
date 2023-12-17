@@ -3,11 +3,11 @@ const seedData = require("../data/seedData");
 const dbClient = require("../dbClient");
 
 async function seed() {
-  // await dbClient.connect();
-  // await Vehicle.deleteMany();
+  await dbClient.connect();
+  await Vehicle.deleteMany();
   // await Vehicle.insertMany(seedData);
   // console.log("Test data inserted successfully");
-  // await dbClient.disconnect();
+  await dbClient.disconnect();
 }
 
 async function createVehicle(req, res) {
